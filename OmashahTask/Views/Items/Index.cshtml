@@ -25,10 +25,19 @@
          <label asp-for="@Model.SearchFilters!.To"  class="control-label">To</label>
          <input asp-for="@Model.SearchFilters!.To" type="date" class="form-control" />
   </div>
-    <div class="form-group">
+  <div class="row">
+            <div class="form-group col-4">
+
+         <label asp-for="@Model.SearchFilters!.ShowPublishedOnly"  class="control-label">Show Published Only</label>
+         <input asp-for="@Model.SearchFilters!.ShowPublishedOnly" type="checkbox" />
+  </div>
+      <div class="form-group">
 
          <input type="submit" value="Filter" class="btn btn-primary" />
   </div>
+  </div>
+
+
   </div>
 
 </form>
@@ -61,7 +70,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td name="desc">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
@@ -74,3 +83,18 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+<script>
+          $('td[name="desc"]').each(function() {
+              debugger;
+             var html = $(this).html().replace(/\[\[([a-zA-Z0-9]+)\]\]$/gm,'<input type="button" value="Button" class="btn btn-primary" onclick="showPopup()" />');
+             $(this).html(html);
+        }); 
+
+        function showPopup() {
+            alert("pressed");
+        }
+
+</script>
+}

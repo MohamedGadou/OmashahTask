@@ -12,7 +12,7 @@ namespace OmashahTask.Controllers
         {
             _itemAppService = itemAppService;
         }
-        public async Task<ActionResult> Index(string name, DateTime? from, DateTime? to)
+        public async Task<ActionResult> Index(string name, DateTime? from, DateTime? to, bool showPublishedOnly)
         {
             var searchFilters = new QueryItemDto
             {
