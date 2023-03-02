@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace OmashahTask.Application.Dtos
 {
-    public class ItemDto
+    public class QueryItemDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
+        public DateTime? From { get; set; }
+        public DateTime? To { get; set; }
+        public bool ShowPublishedOnly { get; set; }
+        public string Order { get; set; }
+
     }
 }

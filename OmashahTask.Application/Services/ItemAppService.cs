@@ -18,7 +18,7 @@ namespace OmashahTask.Application.Services
             _itemRepo = itemRepo;
         }
 
-        public async Task<ItemDto> CreateAsync(CreateItemDto input)
+        public async Task CreateAsync(CreateItemDto input)
         {
             ValidateInput(input);
             
@@ -31,15 +31,14 @@ namespace OmashahTask.Application.Services
             });
 
            await _itemRepo.SaveAsync();
+            
+        }
 
-            return new ItemDto
-            {
-                Id = item.Id,
-                Description = item.Description,
-                Name = item.Name,
-                To = item.To,
-                From = item.From,
-            };
+        public async Task<IList<ItemDto>> GetAllAsync(QueryItemDto input)
+        {
+            var items = await _itemRepo.GetAllAsync(input.Order, input.Name, input.From, input.To, input.ShowPublishedOnly);
+
+            return items.Select(i => new ItemDto { Id = i.Id, Name = i.Name, To = i.To.ToShortDateString(), From = i.From.Date.ToShortDateString(), Description = i.Description }).ToList();
         }
 
         private void ValidateInput(CreateItemDto input)

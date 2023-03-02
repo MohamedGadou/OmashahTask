@@ -9,6 +9,8 @@ namespace OmashahTask.Application.IServices
 {
     public interface IItemAppService
     {
-        Task<ItemDto> CreateAsync(CreateItemDto input);
+        Task CreateAsync(CreateItemDto input);
+        Task<IList<ItemDto>> GetAllAsync(QueryItemDto input);
+
     }
 }

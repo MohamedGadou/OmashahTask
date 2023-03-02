@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OmashahTask.Application.Dtos.ItemDto>
+﻿@model ItemsIndexViewModel
 
 @{
     ViewData["Title"] = "View";
@@ -7,29 +7,53 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Items" asp-action="Index" method="get">
+  <div class="row">
+  <div class="form-group col-4">
+         <label asp-for="@Model.SearchFilters!.Name" class="control-label">Name</label>
+         <input asp-for="@Model.SearchFilters!.Name" name="Name" class="form-control" />
+
+  </div>
+    <div class="form-group col-4">
+
+         <label asp-for="@Model.SearchFilters!.From" class="control-label">From</label>
+         <input asp-for="@Model.SearchFilters!.From" type="date" class="form-control" />
+
+  </div>
+    <div class="form-group col-4">
+
+         <label asp-for="@Model.SearchFilters!.To"  class="control-label">To</label>
+         <input asp-for="@Model.SearchFilters!.To" type="date" class="form-control" />
+  </div>
+    <div class="form-group">
+
+         <input type="submit" value="Filter" class="btn btn-primary" />
+  </div>
+  </div>
+
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Items![0].Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Items![0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Items![0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.From)
+                @Html.DisplayNameFor(model => model.Items![0].From)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.To)
+                @Html.DisplayNameFor(model => model.Items![0].To)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Items!) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)

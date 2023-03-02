@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmashahTask.Application.Dtos;
 using OmashahTask.Application.IServices;
+using OmashahTask.Models;
 
 namespace OmashahTask.Controllers
 {
@@ -11,9 +12,22 @@ namespace OmashahTask.Controllers
         {
             _itemAppService = itemAppService;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index(string name, DateTime? from, DateTime? to)
         {
-            return View(new List<ItemDto>());
+            var searchFilters = new QueryItemDto
+            {
+                Name = name,
+                From = from,
+                To = to
+            };
+            var items = await _itemAppService.GetAllAsync(searchFilters);
+
+            var model = new ItemsIndexViewModel
+            {
+                Items = items,
+                SearchFilters = searchFilters
+            };
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -34,5 +48,20 @@ namespace OmashahTask.Controllers
                 return View();
             }
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Search(CreateItemDto input)
+        //{
+        //    try
+        //    {
+        //        await _itemAppService.CreateAsync(input);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

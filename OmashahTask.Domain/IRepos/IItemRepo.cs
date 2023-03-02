@@ -10,6 +10,7 @@ namespace OmashahTask.Domain.IRepos
     public interface IItemRepo
     {
         Task<Item> InsertAsync(Item entity);
+        Task<IList<Item>> GetAllAsync(string order, string name, DateTime? from, DateTime? to, bool showPublishedOnly);
         Task SaveAsync();
 
     }
