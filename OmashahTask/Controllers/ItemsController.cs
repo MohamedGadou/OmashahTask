@@ -12,7 +12,7 @@ namespace OmashahTask.Controllers
         {
             _itemAppService = itemAppService;
         }
-        public async Task<ActionResult> Index(string name, DateTime? from, DateTime? to, bool showPublishedOnly)
+        public async Task<ActionResult> Index(string name, DateTime? from, DateTime? to)
         {
             var searchFilters = new QueryItemDto
             {
@@ -49,19 +49,17 @@ namespace OmashahTask.Controllers
             }
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Search(CreateItemDto input)
-        //{
-        //    try
-        //    {
-        //        await _itemAppService.CreateAsync(input);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        public async Task<ActionResult> PublishedOnlyItems()
+        {
+            var searchFilters = new QueryItemDto
+            {
+                ShowPublishedOnly = true
+            };
+            var items = await _itemAppService.GetAllAsync(searchFilters);
+
+
+            return View(items);
+        }
+        
     }
 }
